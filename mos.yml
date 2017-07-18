@@ -1,0 +1,17 @@
+author: mf.aoudia@gmail.com
+description: MQ135 gas sensor application
+type: lib
+version: 1.0
+sources:
+  - src
+filesystem:
+  - mjs_fs
+libs:
+    # libs necessary for the current app
+  - origin: https://github.com/mongoose-os-libs/mjs
+tags:
+  - mq135
+  - sensor
+  - adc
+  - js
+skeleton_version: 2017-05-16

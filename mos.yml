@@ -1,5 +1,5 @@
 author: mf.aoudia@gmail.com
-description: MQ135 gas sensor application
+description: MQ135 gas sensor support
 type: lib
 version: 1.0
 sources:
@@ -14,4 +14,5 @@ tags:
   - sensor
   - adc
   - js
+  - hw
 skeleton_version: 2017-05-16

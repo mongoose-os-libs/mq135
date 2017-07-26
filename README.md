@@ -42,4 +42,4 @@ See [example].
 
 [video]: <https://mongoose-os.com/video-tutorials.html>
 
-[example]: <https://github.com/Sparow199/MQ135_MONGOOSE_OS>
+[example]: <https://github.com/mongoose-os-apps/mq135>

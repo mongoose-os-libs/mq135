@@ -22,71 +22,63 @@ let MQ = {
   
   MQ135: {
 
+		// ## **`MQ135.attach(pin)`**
+	        // Attach to a given pin.
 		attach: function(pin) {
 		 	MQ.PIN = pin;
 		},
 
-		/**
-		* ## **`MQ135.getResistance()`**
-		* Get the resistance of the sensor, ie. the measurement value.
-		* Return sensor resistance in kOhm
-		*/
-		getResistance: function() {
+		// ## **`MQ135.getResistance()`**
+		// Get the resistance of the sensor, ie. the measurement value.
+		// Return sensor resistance in kOhm
+	  	getResistance: function() {
 		  return ((1023/ADC.read(MQ.PIN)) * 5 - 1)*MQ.RLOAD;
 		},
 
-		/**
-		* Get the ppm of CO2 sensed (assuming only CO2 in the air)
-		* @return The ppm of CO2 in the air
-		*/
+	        // ## **`MQ135.getPPM(pin)`**
+	        // Get the ppm of CO2 sensed (assuming only CO2 in the air). Return the ppm of CO2 in the air
 		getPPM: function(pin) {
 		  return Math.round(MQ.PARA * Math.pow((this.getResistance() / MQ.RZERO), -MQ.PARB));
 		},
 
-		/**
-		 * Get the resistance RZero of the sensor for calibration purposes.
-		 * Set this value to your "MQ.RZERO" variable if you need.
-		 */
+	        // ## **`MQ135.getRZero()`**
+	        // Get the resistance RZero of the sensor for calibration purposes.
+	        // Set this value to your "MQ.RZERO" variable if you need.
 		getRZero: function() {
 		  return this.getResistance() * Math.pow((MQ.ATMOCO2/MQ.PARA), (1/MQ.PARB));
 		},
 
-		/**
-		* Get the correction factor to correct for temperature and humidity
-		* @param[in] temperature  The ambient air temperature
-		* @param[in] humidity  The relative humidity
-		* @return The calculated correction factor
-		*/
+	        // ## **`MQ135.getCorrectionFactor(temperature, humidity)`**
+	        // Get the correction factor to correct for `temperature` and `humidity`.
+	        // `temperature` is the ambient air temperature, `humidity` is the relative humidity.
+	        // Return the calculated correction factor.
 		getCorrectionFactor: function(temperature, humidity) {
 		  return MQ.CORA * temperature * temperature - MQ.CORB * temperature + MQ.CORC - (humidity - 33) * MQ.CORD;
 		},
 
-		/**
-		* Get the resistance of the sensor, ie. the measurement value corrected for temperature/humidity
-		* @param[in] temperature  The ambient air temperature
-		* @param[in] humidity  The relative humidity
-		* @return The corrected sensor resistance kOhm
-		*/
+		// ## **`MQ135.getCorrectedResistance(temperature, humidity)`**
+		// Get the resistance of the sensor, ie. the measurement value corrected for temperature/humidity
+		// @param[in] temperature  The ambient air temperature
+		// @param[in] humidity  The relative humidity
+		// @return The corrected sensor resistance kOhm
 		getCorrectedResistance: function(temperature, humidity) {
 		  return Math.round(this.getResistance() / this.getCorrectionFactor(temperature, humidity));
 		},
 
-		/**
-		* Get the ppm of CO2 sensed (assuming only CO2 in the air), corrected for temperature/humidity
-		* @param[in] temperature  The ambient air temperature
-		* @param[in] humidity The relative humidity
-		* @return The ppm of CO2 in the air
-		*/
+		// ## **`MQ135.getCorrectedPPM(temperature, humidity)`**
+		// Get the ppm of CO2 sensed (assuming only CO2 in the air), corrected for temperature/humidity
+		// @param[in] temperature  The ambient air temperature
+		// @param[in] humidity The relative humidity
+		// @return The ppm of CO2 in the air
 		getCorrectedPPM: function(temperature, humidity) {
 		  return Math.round(MQ.PARA * Math.pow((this.getCorrectedResistance(temperature, humidity)/MQ.RZERO), -MQ.PARB));
 		},
 
-		/**
-		* Get the resistance RZero of the sensor for calibration purposes
-		* @param[in] temperature  The ambient air temperature
-		* @param[in] humidity The relative humidity
-		* @return The sensor resistance RZero in kOhm
-		*/
+		// ## **`MQ135.getCorrectedRZero(temperature, humidity)`**
+		// Get the resistance RZero of the sensor for calibration purposes
+		// @param[in] temperature  The ambient air temperature
+		// @param[in] humidity The relative humidity
+		// @return The sensor resistance RZero in kOhm
 		getCorrectedRZero: function(temperature, humidity) {
 		  return this.getCorrectedResistance(temperature, humidity) * Math.pow((MQ.ATMOCO2/MQ.PARA), (1/MQ.PARB));
 		},

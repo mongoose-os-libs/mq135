@@ -27,8 +27,9 @@ let MQ = {
 		},
 
 		/**
-		* Get the resistance of the sensor, ie. the measurement value
-		* @return The sensor resistance in kOhm
+		* ## **`MQ135.getResistance()`**
+		* Get the resistance of the sensor, ie. the measurement value.
+		* Return sensor resistance in kOhm
 		*/
 		getResistance: function() {
 		  return ((1023/ADC.read(MQ.PIN)) * 5 - 1)*MQ.RLOAD;

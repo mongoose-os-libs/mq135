@@ -9,6 +9,7 @@ filesystem:
 libs:
     # libs necessary for the current app
   - origin: https://github.com/mongoose-os-libs/mjs
+  - origin: https://github.com/mongoose-os-libs/adc  
 tags:
   - mq135
   - sensor
